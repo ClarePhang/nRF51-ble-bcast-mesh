@@ -1,17 +1,15 @@
 = nRF OpenMesh (formerly nRF51-ble-broadcast-mesh)
 
-Bluetooth Low Energy based rebroadcasting mesh implementation on the nRF51 called *nRF OpenMesh*.
-Works with SoftDevice S110 v8.x and S130 v1.0 with Timeslot API, and the nRF51 SDK8.1.
+Bluetooth Low Energy based rebroadcasting mesh implementation on the nRF52 called *nRF OpenMesh*.
+Works with SoftDevice S132 v2.0.0  with Timeslot API, and the nRF52 SDK 11.0.0. It
 Offers an API for implementing your own mesh enabled application, operating
 concurrently with regular BLE applications.
 
 == Usage
-In addition to two provided examples, there is a template project under
-_nRF51/examples/_. This may be used as a basis for your own applications, or you
-could choose to do it yourself from scratch. In theory, the framework should be
-compatible with most SoftDevice based projects, but some restrictions to
-hardware and software modules apply, see
-link:docs/how_it_works.adoc#resource-allocation[Resource allocation]  for
+
+Right now this branch has only one example project named BLE_Gateway intended for nRF52 application.This can be found under
+_nRF52/examples/_. This may be used as a basis for what modifications are neeed to migrate from nRF51 to nRF52.In theory, the framework should be compatible with most SoftDevice based projects, but some restrictions to
+hardware and software modules apply, see link:docs/how_it_works.adoc#resource-allocation[Resource allocation]  for
 details. The framework adds a Mesh GATT service to the SoftDevice GATT server
 which contain all mesh-global states. This service may be accessed by external
 nodes, just as any other GATT service, through a connection established via the
@@ -26,19 +24,19 @@ application controller framework using SPI is available under
 _application_controller_, with an Arduino example to get you started. Note
 that the application controller requires the
 https://github.com/NordicSemiconductor/ble-sdk-arduino[ble-sdk-arduino]
-framework. This allows you to operate an Arduino along with an nRF51 dev kit
-in the mesh, making it easier to create mesh applications. Each nRF51 example
-project has a separate target (named "nRF51822 xxAA serial") that incorporates
-the serial interface with the rest of the project.
+framework. This allows you to operate an Arduino along with an nRF52 dev kit
+in the mesh, making it easier to create mesh applications. Each nRF52 example
+project has a separate target (named "nRF52832 xxAA serial") that incorporates
+the serial interface with the rest of the project. 
 
 === Getting started
 
-The framework requires nRF51 SDK 8.1, and can be built with both Keil uVision
+The framework requires nRF52 SDK 11.0.0 and can be built with both Keil uVision
 and GCC-arm-none-eabi.
 
 The example projects utilizes the *non-pack* version of the SDK, available
 at http://developer.nordicsemi.com/[Nordic Semiconductor's developer portal].
-Clone this repo into _<SDK8-folder>/examples/<Project-folder>_.
+Clone this repo into _<SDK11-folder>/examples/<Project-folder>_.
 
 This will ensure that all references to the SDK are correctly placed, so that
 you don't have to change all references to the SDK in the project files. If
@@ -50,7 +48,7 @@ makefiles for GCC).
 
 === Integrating with existing applications
 The framework is built to be compatible with most existing SDK example
-projects, and as of v0.6.9, it is also compatible with the SDK module
+projects.It is also compatible with the SDK module
 APP_TIMER right out of the box.
 In order to be compatible with the APP_TIMER module, the framework makes
 use of the Quadrature Decoder hardware interrupt handler for asynchronous
@@ -83,7 +81,7 @@ synchronizing states across a set of BLE enabled nodes. All nodes receive all
 messages that are transmitted within their range, and any node may update the
 mesh-global states. There is no hierarchy, and no directed data links.
 
-The framework resides on top of the nRF51 SoftDevice, utilizing the Timeslot
+The framework resides on top of the nRF52 SoftDevice, utilizing the Timeslot
 API to allocate radio time. The framework will attempt to allocate as much time
 as possible, in order to listen for other nodes' messages.
 
