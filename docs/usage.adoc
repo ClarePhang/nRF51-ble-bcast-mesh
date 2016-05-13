@@ -19,17 +19,16 @@ As an example for how to use the _Trickle_ mechanism correctly we can take a loo
 Note that the rebroadcast in itself cannot serve as a heartbeat signal, as the framework will filter out repeated messages in the receiving nodes.
 
 == Structure
-The project is split into two parts: _/nRF51/_ and _/application_controller/_. 
+The project is split into two parts: _/nRF52/_ and _/application_controller/_. 
 
 
-The _/nRF51/_ folder contains the main part of the framework (and was the top level 
-folder before version 0.6.x), and is meant to run on the nRF51 device-line from 
+The _/nRF52/_ folder contains the main part of the framework and is meant to run on the nRF52 device-line from 
 Nordic Semiconductor. It contains both the framework and example projects
 displaying some simple behavior. 
 
 The _/application_controller/_ folder contains a serial interface controller 
 framework, that allows external MCUs to take part in the mesh through an
-nRF51 device.
+nRF52 device.
 
 === Framework Modules
 
@@ -48,7 +47,7 @@ Softdevice GATT server, so external devices may interact with the mesh.
 schedule retransmissions and manage which versions of the data is currently presented 
 by the node. Is also responsible for managing the handle and data cache.
 
-* *timeslot_handler* A module communicating with and abstracting the nRF51
+* *timeslot_handler* A module communicating with and abstracting the nRF52
 Softdevice Timeslot API.
 
 * *transport_control* Lower level packet handler. Abstracts the radio interface and
@@ -85,7 +84,7 @@ while the other framework files need to be included in the build process or
 Keil project, they should not be interfaced directly. Note that all API
 functions except the getters for metadata calls Softdevice SVC functions, and
 consequently, all use of the API must happen in interrupt context APP_LOW or MAIN. 
-The framework event callback function runs in priority 3 (APP_LOW), and it is
+The framework event callback function runs in priority 6 (APP_LOW), and it is
 safe to use the API from this context.
 
 === The API provides the following functions to the user:
@@ -331,7 +330,7 @@ framework, and addresses the different eventhandlers and initialization
 functions, without any additional functionality.
 
 === LED Mesh example
-This example reads the buttons on the nRF51 evkit boards, and sets the LEDs
+This example reads the buttons on the nRF52 evkit boards, and sets the LEDs
 accordingly. It also broadcasts the state of the LEDs to the other nodes in the
 same mesh, which will copy the state of the node that registered a button push.
 This example can also be flashed to the nRF51 dongles (PCA10000 and PCA10031), 
@@ -341,7 +340,7 @@ nodes.
 
 === BLE Gateway example
 This example uses the same configuration for LEDs as the LED Mesh example, but
-provides a S110 Softdevice profile for communication with external nodes in
+provides a S132 Softdevice profile for communication with external nodes in
 stead of a physical interface. The example application starts sending
 regular connectable BLE advertisements with the Softdevice, and displays the
 Mesh service in its GATT server, so that external nodes may write to the two
