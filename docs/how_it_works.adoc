@@ -11,7 +11,7 @@ version number for that value by one.
 
 There may be up to 65535 Mesh value handles in the mesh. Each mesh value will 
 operate with their own instance of the Trickle algorithm, meaning that they 
-will be rebroadcasted independently. As the nRF51 doesn't have enough RAM to
+will be rebroadcasted independently. As the nRF52 doesn't have enough RAM to
 support storing all the handles at the same time, the framework employs two 
 "caches", which store the most recently used values. The "handle" cache stores
 the current version number of each known handle, and allows the framework to 
